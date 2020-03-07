@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignorar o arquivo de exemplo do professor
+fabiano.py
+tcc.py
