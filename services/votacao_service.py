@@ -1,0 +1,1 @@
+# Irá fazer as chamadas ao WS referentes as votações
