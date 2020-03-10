@@ -1,8 +1,3 @@
-# Conter:
-#     orientacoes_bancada -> List<bancada>
-#     votos -> List<Deputado>
-
-
 class Votacao:
 
     def __init__(self, orientacoes_bancada: dict, votos: dict):
