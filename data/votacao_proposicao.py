@@ -5,42 +5,42 @@
 #     votacoes -> List<Votacao>
 
 
-class VotacaoProposicao:
+class PropositionVoting:
 
-    def __init__(self, sigla: str, numero: int, ano: int, votacoes: list):
-        self._sigla = sigla
-        self._numero = numero
-        self._ano = ano
-        self._votacoes = votacoes
-
-    @property
-    def sigla(self):
-        return self._sigla
-
-    @sigla.setter
-    def sigla(self, sigla):
-        self._sigla = sigla
+    def __init__(self, initials: str, number: int, year: int, votings: list):
+        self._initials = initials
+        self._number = number
+        self._year = year
+        self._votings = votings
 
     @property
-    def numero(self):
-        return self._numero
+    def initials(self):
+        return self._initials
 
-    @numero.setter
-    def numero(self, numero):
-        self._numero = numero
-
-    @property
-    def ano(self):
-        return self._ano
-
-    @ano.setter
-    def ano(self, ano):
-        self._ano = ano
+    @initials.setter
+    def initials(self, initials):
+        self._initials = initials
 
     @property
-    def votacoes(self):
-        return self._votacoes
+    def number(self):
+        return self._number
 
-    @votacoes.setter
-    def votacoes(self, votacoes):
-        self._votacoes = votacoes
+    @number.setter
+    def number(self, number):
+        self._number = number
+
+    @property
+    def year(self):
+        return self._year
+
+    @year.setter
+    def year(self, year):
+        self._year = year
+
+    @property
+    def votings(self):
+        return self._votings
+
+    @votings.setter
+    def votings(self, votings):
+        self._votings = votings
