@@ -4,33 +4,33 @@ from requests.exceptions import HTTPError
 
 class VotingService(RequestService):
 
-    def __init__(self, tipo: str, numero: int, ano: int):
+    def __init__(self, voting_type: str, number: int, year: int):
         super().__init__()
         self._ENDPOINT = '/ObterVotacaoProposicao'
-        self._tipo = tipo
-        self._numero = numero
-        self._ano = ano
+        self._voting_type = voting_type
+        self._number = number
+        self._year = year
 
     @property
-    def tipo(self):
-        return self._tipo
+    def voting_type(self):
+        return self._voting_type
 
-    @tipo.setter
-    def tipo(self, tipo):
-        self._tipo = tipo
-
-    @property
-    def numero(self):
-        return self._numero
-
-    @numero.setter
-    def numero(self, numero):
-        self._numero = numero
+    @voting_type.setter
+    def voting_type(self, voting_type):
+        self._voting_type = voting_type
 
     @property
-    def ano(self):
-        return self._ano
+    def number(self):
+        return self._number
 
-    @ano.setter
-    def ano(self, ano):
-        self._ano = ano
+    @number.setter
+    def number(self, number):
+        self._number = number
+
+    @property
+    def year(self):
+        return self._year
+
+    @year.setter
+    def year(self, year):
+        self._year = year
