@@ -1,4 +1,4 @@
-class Stand:
+class Bench:
 
     def __init__(self, initials: str, orientation: str):
         self._initials = initials

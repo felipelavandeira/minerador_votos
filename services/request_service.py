@@ -1,6 +1,7 @@
-import requests
+from abc import abstractmethod
 from requests.exceptions import HTTPError
 from xml.etree import ElementTree
+import requests
 
 
 class RequestService:
@@ -31,3 +32,7 @@ class RequestService:
     @property
     def parser(self):
         return self._parser
+
+    @abstractmethod
+    def get_from_ws(self):
+        pass

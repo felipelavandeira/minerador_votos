@@ -34,3 +34,6 @@ class VotingService(RequestService):
     @year.setter
     def year(self, year):
         self._year = year
+
+    def get_from_ws(self):
+        return
