@@ -1,16 +1,21 @@
 from services.proposition_service import PropositionService
+from services.voting_service import VotingService
 
 
 class Main:
 
     def __init__(self):
         propositions_list = self.get_propositions()
+        voting_list = VotingService(propositions_list)
+        result = voting_list.get_from_ws()
+
+        print(result)
 
     @staticmethod
     def get_propositions():
         proposition_list = []
         ano_inicial, ano_final = input('Selecione o ano inicial e o ano final para a seleção das requisições: ').split()
-        intervalo = range(int(ano_inicial), int(ano_final), 1)
+        intervalo = range(int(ano_inicial), int(ano_final)+1, 1)
 
         print('Buscando proposições...')
 

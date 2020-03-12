@@ -59,15 +59,16 @@ class PropositionService(RequestService):
             return Proposition(id=proposition_id, name=name, number=number, type=proposition_type, year=year,
                                dt_voting=dt_voting)
 
-    @staticmethod
-    def parse_from_name(element):
+    def parse_from_name(self, element):
         for proposition_attr in element:
             if proposition_attr.tag == 'nomeProposicao':
-                bar_index = proposition_attr.text.index('/')
-                name = proposition_attr.text
-                proposition_type = proposition_attr.text[0:proposition_attr.text.index(' ')]
-                number = proposition_attr.text[3:bar_index]
-                year = proposition_attr.text[bar_index + 1:bar_index + 5]
+                text = self.find_name(proposition_attr.text)
+                bar_index = text.index('/')
+                space_index = text.rindex(' ')
+                name = text
+                proposition_type = text[0:space_index]
+                number = proposition_attr.text[space_index+1:bar_index]
+                year = proposition_attr.text[bar_index + 1:]
 
         return name, int(number), proposition_type, int(year)
 
@@ -88,3 +89,11 @@ class PropositionService(RequestService):
     @staticmethod
     def remove_duplicates(proposition_list: list):
         return set(proposition_list)
+
+    @staticmethod
+    def find_name(text: str):
+        union_index = text.rfind('=&gt')
+        if union_index == -1:
+            return text
+        else:
+            return text[union_index+6:]
