@@ -1,6 +1,8 @@
 from services.request_service import RequestService
 from requests.exceptions import HTTPError
-
+from data.proposition_voting import PropositionVoting
+from data.voting import Voting
+from data.bench import Bench
 
 class VotingService(RequestService):
 
@@ -18,7 +20,7 @@ class VotingService(RequestService):
         self._propositions = propositions
 
     def get_from_ws(self):
-        result = []
+        result = {}
         for year in self._propositions:
             for proposition in year:
                 try:
@@ -26,20 +28,51 @@ class VotingService(RequestService):
                                                 {'ano': proposition.year,
                                                  'tipo': proposition.type,
                                                  'numero': proposition.number})
-                    result.append(response.status_code)
+                    root = self.parser.fromstring(response.text)
+                    number, proposition_vote = self.parse_proposition_voting(root)
+                    result.update({number: proposition_vote})
                 except HTTPError as error:
-                    result.append('Erro na requisição da votação de {}: {}'.format(proposition.name, error))
+                    result.update({'Erro': 'Erro na requisição da votação de {}: {}'.format(proposition.name, error)})
         return result
 
-    def parse_voting_list(self):
-        return
+    def parse_proposition_voting(self, element):
+        initials = ''
+        number = 0
+        year = 0
+        votings = []
+        for child in element:
+            if child.tag == 'Sigla':
+                initials = child.text
+            elif child.tag == 'Numero':
+                number = child.text
+            elif child.tag == 'Ano':
+                year = child.text
+            else:
+                votings.append(self.parse_voting_list(child))
+        return number, PropositionVoting(initials=initials, number=number, year=year, votings=votings)
 
-    def parse_bench_list(self):
-        return
+    def parse_voting_list(self, element):
+        vote_list = []
+        bench_list = []
+        for voting in element:
+            for child in voting:
+                if child.tag == 'orientacaoBancada':
+                    bench_list = self.parse_bench_list(child)
+                else:
+                    vote_list = self.paser_vote_list(child)
+        return Voting(bench_orientation=bench_list, votes=vote_list)
 
-    def parse_congressman_list(self):
-        return
+    @staticmethod
+    def parse_bench_list(bench_orientation):
+        bench_list = []
+        for orientation in bench_orientation:
+            bench_list.append(Bench(initials=orientation.attrib.get('Sigla'),
+                                    orientation=orientation.attrib.get('orientacao')))
+        return bench_list
 
-    def calculate_scores(self):
-        party_score, government_score = 0
-        return party_score, government_score
+    @staticmethod
+    def paser_vote_list(vote_xml):
+        vote_list = []
+        for vote in vote_xml:
+            vote_list.append(vote.attrib)
+        return vote_list

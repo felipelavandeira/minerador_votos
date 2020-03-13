@@ -1,10 +1,3 @@
-# Conter:
-#     sigla
-#     numero
-#     ano
-#     votacoes -> List<Votacao>
-
-
 class PropositionVoting:
 
     def __init__(self, initials: str, number: int, year: int, votings: list):

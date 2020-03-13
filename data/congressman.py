@@ -1,13 +1,3 @@
-# Conter:
-#     dados do deputado:
-#         id
-#         nome
-#         partido
-#         uf
-#     score_pro_partido
-#     score_pro_governo
-
-
 class Congressman:
 
     def __init__(self, congressman_id: int, name: str, party: str, state: str):

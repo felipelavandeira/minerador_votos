@@ -1,6 +1,6 @@
 class Voting:
 
-    def __init__(self, bench_orientation: dict, votes: dict):
+    def __init__(self, bench_orientation: list, votes: list):
         self._bench_orientation = bench_orientation
         self._votes = votes
 
