@@ -5,11 +5,13 @@ from services.voting_service import VotingService
 class Main:
 
     def __init__(self):
-        propositions_list = self.get_propositions()
-        voting_list = VotingService(propositions_list)
-        result = voting_list.get_from_ws()
+        self.propositions_list = self.get_propositions()
+        votings_list = self.get_votings()
 
-        print(result)
+    def get_votings(self):
+        voting_list = VotingService(self.propositions_list)
+        print("Buscando as votações das proposições ocorridas no período selecionado...")
+        return voting_list.get_from_ws()
 
     @staticmethod
     def get_propositions():
