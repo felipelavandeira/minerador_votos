@@ -6,7 +6,8 @@ class Main:
 
     def __init__(self):
         self.propositions_list = self.get_propositions()
-        votings_list = self.get_votings()
+        votings = self.get_votings()
+        input()
 
     def get_votings(self):
         voting_list = VotingService(self.propositions_list)
@@ -17,7 +18,7 @@ class Main:
     def get_propositions():
         proposition_list = []
         ano_inicial, ano_final = input('Selecione o ano inicial e o ano final para a seleção das requisições: ').split()
-        intervalo = range(int(ano_inicial), int(ano_final)+1, 1)
+        intervalo = range(int(ano_inicial), int(ano_final) + 1, 1)
 
         print('Buscando proposições...')
 

@@ -4,6 +4,7 @@ from data.proposition_voting import PropositionVoting
 from data.voting import Voting
 from data.bench import Bench
 
+
 class VotingService(RequestService):
 
     def __init__(self, propositions: list):
@@ -53,21 +54,24 @@ class VotingService(RequestService):
 
     def parse_voting_list(self, element):
         vote_list = []
-        bench_list = []
+        bench_list = {}
+        votings = []
         for voting in element:
             for child in voting:
                 if child.tag == 'orientacaoBancada':
                     bench_list = self.parse_bench_list(child)
                 else:
                     vote_list = self.paser_vote_list(child)
-        return Voting(bench_orientation=bench_list, votes=vote_list)
+            votings.append(Voting(bench_orientation=bench_list, votes=vote_list))
+        return votings
 
     @staticmethod
     def parse_bench_list(bench_orientation):
-        bench_list = []
+        bench_list = {}
         for orientation in bench_orientation:
-            bench_list.append(Bench(initials=orientation.attrib.get('Sigla'),
-                                    orientation=orientation.attrib.get('orientacao')))
+            bench_list.update(
+                {orientation.attrib.get('Sigla'): Bench(initials=orientation.attrib.get('Sigla'),
+                                                        orientation=orientation.attrib.get('orientacao'))})
         return bench_list
 
     @staticmethod
