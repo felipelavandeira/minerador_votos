@@ -1,5 +1,4 @@
-from services.proposition_service import PropositionService
-from services.voting_service import VotingService
+from services import *
 
 
 class Main:
@@ -7,6 +6,8 @@ class Main:
     def __init__(self):
         self.propositions_list = self.get_propositions()
         votings = self.get_votings()
+        score = ScoreService(votings)
+        score.clean_data()
         input()
 
     def get_votings(self):

@@ -49,7 +49,7 @@ class VotingService(RequestService):
             elif child.tag == 'Ano':
                 year = child.text
             else:
-                votings.append(self.parse_voting_list(child))
+                votings = self.parse_voting_list(child)
         return number, PropositionVoting(initials=initials, number=number, year=year, votings=votings)
 
     def parse_voting_list(self, element):

@@ -1,8 +1,8 @@
 class Bench:
 
     def __init__(self, initials: str, orientation: str):
-        self._initials = initials
-        self._orientation = orientation
+        self._initials = initials.strip()
+        self._orientation = orientation.strip()
 
     @property
     def initials(self):

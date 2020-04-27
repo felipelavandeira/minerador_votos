@@ -6,7 +6,7 @@ class Congressman:
         self._party = party
         self._state = state
         self._party_score = 0
-        self._government_score = 0
+        self._voting_times = 0
 
     @property
     def congressman_id(self):
@@ -45,13 +45,13 @@ class Congressman:
         return self._party_score
 
     @party_score.setter
-    def party_score(self, party_score: int):
+    def party_score(self, party_score: float):
         self._party_score = party_score
 
     @property
-    def government_score(self):
-        return self._government_score
-
-    @government_score.setter
-    def government_score(self, government_score: int):
-        self._government_score = government_score
+    def voting_times(self):
+        return self._voting_times
+    
+    @voting_times.setter
+    def voting_times(self, voting_times: int):
+        self._voting_times = voting_times

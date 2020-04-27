@@ -131,3 +131,4 @@ dmypy.json
 # Ignorar o arquivo de exemplo do professor
 fabiano.py
 tcc.py
+.idea/
