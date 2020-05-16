@@ -6,8 +6,8 @@ class Main:
     def __init__(self):
         self.propositions_list = self.get_propositions()
         votings = self.get_votings()
-        score = ScoreService(votings)
-        score.clean_data()
+        scoreService = ScoreService(votings)
+        score = scoreService.calculate()
         input()
 
     def get_votings(self):
