@@ -63,10 +63,14 @@ class PropositionService(RequestService):
         for proposition_attr in element:
             if proposition_attr.tag == 'nomeProposicao':
                 text = self.find_name(proposition_attr.text)
-                bar_index = text.index('/')
+                bar_index = text.rindex('/')
                 space_index = text.rindex(' ')
+                separator_index = text.rfind('=> ')
                 name = text
-                proposition_type = text[0:space_index]
+                if separator_index == -1:
+                    proposition_type = text[0:space_index]
+                else:
+                    proposition_type = text[separator_index+3:space_index]
                 number = proposition_attr.text[space_index+1:bar_index]
                 year = proposition_attr.text[bar_index + 1:]
 

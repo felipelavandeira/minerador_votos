@@ -29,9 +29,10 @@ class VotingService(RequestService):
                                                 {'ano': proposition.year,
                                                  'tipo': proposition.type,
                                                  'numero': proposition.number})
-                    root = self.parser.fromstring(response.text)
-                    number, proposition_vote = self.parse_proposition_voting(root)
-                    result.update({number: proposition_vote})
+                    if response.status_code == 200:
+                        root = self.parser.fromstring(response.text)
+                        number, proposition_vote = self.parse_proposition_voting(root)
+                        result.update({number: proposition_vote})
                 except HTTPError as error:
                     result.update({'Erro': 'Erro na requisição da votação de {}: {}'.format(proposition.name, error)})
         return result
