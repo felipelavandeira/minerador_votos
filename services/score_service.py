@@ -14,6 +14,7 @@ class ScoreService:
         for key in self._votes_to_score:
             item = self._votes_to_score.get(key)
             self.clean_votes(item.votings)
+            self.calculate_percent()
         return self._score
 
     def clean_votes(self, votes: list):
@@ -62,6 +63,14 @@ class ScoreService:
         if congressman['Voto'] == benchOrientation.orientation:
             congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.party_score = congressmanToScore.party_score + 1
+
+    def calculate_percent(self):
+        for key in self._score:
+            congressman = self._score[key]
+            result = congressman.party_score / congressman.voting_times
+            congressman.score_percent = result
+
+
 
     @staticmethod
     def incrementVotingTimes(congressman):

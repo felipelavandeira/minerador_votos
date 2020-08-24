@@ -2,3 +2,5 @@ from services.request_service import RequestService
 from services.voting_service import VotingService
 from services.score_service import ScoreService
 from services.proposition_service import PropositionService
+
+import csv

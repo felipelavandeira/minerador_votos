@@ -7,6 +7,7 @@ class Congressman:
         self._state = state
         self._party_score = 0
         self._voting_times = 0
+        self._score_percent = 0
 
     @property
     def congressman_id(self):
@@ -51,7 +52,15 @@ class Congressman:
     @property
     def voting_times(self):
         return self._voting_times
-    
+
     @voting_times.setter
     def voting_times(self, voting_times: int):
         self._voting_times = voting_times
+
+    @property
+    def score_percent(self):
+        return self._score_percent
+
+    @score_percent.setter
+    def score_percent(self, score_percent):
+        self._score_percent = score_percent
