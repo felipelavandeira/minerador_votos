@@ -3,6 +3,7 @@ class Bench:
     def __init__(self, initials: str, orientation: str):
         self._initials = initials.strip()
         self._orientation = orientation.strip()
+        self._spectrum = ""
 
     @property
     def initials(self):

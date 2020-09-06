@@ -1,10 +1,12 @@
 from data import *
+import csv
 
 
 class ScoreService:
     def __init__(self, votes_to_score: dict):
         self._votes_to_score = votes_to_score
         self._score = {}
+        # self.build_spectrum()
 
     @property
     def votes_to_score(self):
@@ -70,7 +72,11 @@ class ScoreService:
             result = congressman.party_score / congressman.voting_times
             congressman.score_percent = result
 
-
+    # @staticmethod
+    # def build_spectrum():
+    #     with open('files/situacao_oposicao.csv') as csv_file:
+    #         reader = csv.DictReader(csv_file, delimiter=',')
+    #         print(reader)
 
     @staticmethod
     def incrementVotingTimes(congressman):

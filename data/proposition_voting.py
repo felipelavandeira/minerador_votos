@@ -1,10 +1,11 @@
 class PropositionVoting:
 
-    def __init__(self, initials: str, number: int, year: int, votings: list):
+    def __init__(self, initials: str, number: int, year: int, votings: list, author_bench: str):
         self._initials = initials
         self._number = number
         self._year = year
         self._votings = votings
+        self._author_bench = author_bench
 
     @property
     def initials(self):
@@ -37,3 +38,11 @@ class PropositionVoting:
     @votings.setter
     def votings(self, votings):
         self._votings = votings
+
+    @property
+    def author_bench(self):
+        return self._author_bench
+
+    @author_bench.setter
+    def author_bench(self, author_bench):
+        self._author_bench = author_bench
