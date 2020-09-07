@@ -20,3 +20,11 @@ class Bench:
     @orientation.setter
     def orientation(self, orientation: str):
         self._orientation = orientation
+
+    @property
+    def spectrum(self):
+        return self._spectrum
+
+    @spectrum.setter
+    def spectrum(self, spectrum):
+        self._spectrum = spectrum

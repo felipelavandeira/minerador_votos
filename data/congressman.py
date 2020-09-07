@@ -8,6 +8,8 @@ class Congressman:
         self._party_score = 0
         self._voting_times = 0
         self._score_percent = 0
+        self._spectrum_score = 0
+        self._spectrum_percent = 0
 
     @property
     def congressman_id(self):
@@ -64,3 +66,19 @@ class Congressman:
     @score_percent.setter
     def score_percent(self, score_percent):
         self._score_percent = score_percent
+
+    @property
+    def spectrum_score(self):
+        return self._spectrum_score
+
+    @spectrum_score.setter
+    def spectrum_score(self, spectrum_score: int):
+        self._spectrum_score = spectrum_score
+
+    @property
+    def spectrum_percent(self):
+        return self._spectrum_percent
+
+    @spectrum_percent.setter
+    def spectrum_percent(self, spectrum_percent):
+        self._spectrum_percent = spectrum_percent

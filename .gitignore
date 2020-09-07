@@ -134,3 +134,4 @@ tcc.py
 .idea/
 .vscode/
 files/result.csv
+files/result*.csv

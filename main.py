@@ -6,9 +6,9 @@ class Main:
     def __init__(self):
         self.propositions_list, init_year, end_year = self.get_propositions()
         votings = self.get_votings(init_year, end_year)
-        scoreService = ScoreService(votings)
+        scoreService = ScoreService(votings, init_year, end_year)
         score = scoreService.calculate()
-        self.export_score(score)
+        self.export_score(score, init_year, end_year)
 
     def get_votings(self, init_year: int, end_year: int):
         voting_list = VotingService(self.propositions_list, init_year, end_year)
@@ -16,22 +16,19 @@ class Main:
         return voting_list.get_from_ws()
 
     @staticmethod
-    def export_score(score):
+    def export_score(score, init_year: int, end_year: int):
         dialect = csv.excel_tab
         dialect.delimiter = ';'
-        with open('files/result.csv', mode='w') as csv_file:
-            field_names = ['nome deputado', 'partido', 'estado', 'qtd de votos', 'pontuação bruta', 'pontuação']
+        with open('files/result_{}-{}.csv'.format(init_year, end_year), mode='w') as csv_file:
+            field_names = ['nome deputado', 'pontuação', 'pontuação filosofia']
             writer = csv.DictWriter(csv_file, fieldnames=field_names, dialect=dialect)
             writer.writeheader()
             for key in score:
                 congressman = score[key]
                 writer.writerow({
                     'nome deputado': congressman.name,
-                    'partido': congressman.party,
-                    'estado': congressman.state,
-                    'qtd de votos': congressman.voting_times,
-                    'pontuação bruta': congressman.party_score,
-                    'pontuação': congressman.score_percent
+                    'pontuação': congressman.score_percent,
+                    'pontuação filosofia': congressman.spectrum_percent,
                 })
         print("Arquivo gerado!")
 

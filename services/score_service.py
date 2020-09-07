@@ -3,10 +3,12 @@ import csv
 
 
 class ScoreService:
-    def __init__(self, votes_to_score: dict):
+    def __init__(self, votes_to_score: dict, init_year: int, end_year: int):
         self._votes_to_score = votes_to_score
         self._score = {}
-        # self.build_spectrum()
+        self._init_year = init_year
+        self._end_year = end_year
+        self._spectrum = self.build_spectrum()
 
     @property
     def votes_to_score(self):
@@ -32,15 +34,18 @@ class ScoreService:
 
     def calculate_score(self, item: dict, orientation: dict):
         benchOrientation = self.findOrientation(item, orientation)
+        government_orientation, spectrum = self.findSpectrum(item, orientation)
         if item['ideCadastro'] in self._score:
             self.incrementVotingTimes(self._score.get(item['ideCadastro']))
             self.incrementScore(item, benchOrientation)
+            self.incrementSpectrumScore(item, government_orientation, spectrum)
         else:
             congressman = Congressman(congressman_id=item['ideCadastro'], name=item['Nome'],
                                       party=item['Partido'], state=item['UF'])
             self.incrementVotingTimes(congressman)
             self._score.update({item['ideCadastro']: congressman})
             self.incrementScore(item, benchOrientation)
+            self.incrementSpectrumScore(item, government_orientation, spectrum)
 
     def findOrientation(self, item: dict, orientation: dict):
         orientation = self.separateOrientation(orientation)
@@ -48,6 +53,20 @@ class ScoreService:
             partido = item['Partido'].lower()
             if partido == bench.lower() or 'repr.{}'.format(partido) == bench.lower():
                 return orientation.get(bench)
+
+    def findSpectrum(self, item: dict, orientation: dict):
+        government_orientation = {}
+        philosophy = ''
+        if int(self._init_year) == 2011 and int(self._end_year) == 2012:
+            government_orientation.update({'Partido': 'PT'})
+        else:
+            government_orientation.update({'Partido': 'PSL'})
+        government_orientation = self.findOrientation(government_orientation, orientation)
+        party = item['Partido'].lower()
+        for party_spectrum in self._spectrum:
+            if party_spectrum['partido'].lower() == party or 'repr.{}'.format(party) == party_spectrum['partido']:
+                philosophy = party_spectrum['filosofia']
+        return government_orientation, philosophy
 
     def separateOrientation(self, orientation: dict):
         keys = list(orientation.keys())
@@ -66,17 +85,37 @@ class ScoreService:
             congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.party_score = congressmanToScore.party_score + 1
 
+    def incrementSpectrumScore(self, congressman: dict, government_orientation: Bench, spectrum: str):
+        if government_orientation is None or not spectrum:
+            return
+
+        if spectrum == 'G' and congressman['Voto'] == government_orientation.orientation:
+            congressmanToScore = self._score.get(congressman['ideCadastro'])
+            congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
+
+        if spectrum == 'O' and congressman['Voto'] != government_orientation.orientation:
+            congressmanToScore = self._score.get(congressman['ideCadastro'])
+            congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
+
     def calculate_percent(self):
         for key in self._score:
             congressman = self._score[key]
             result = congressman.party_score / congressman.voting_times
             congressman.score_percent = result
+            spectrum_result = congressman.spectrum_score / congressman.voting_times
+            congressman.spectrum_percent = spectrum_result
 
-    # @staticmethod
-    # def build_spectrum():
-    #     with open('files/situacao_oposicao.csv') as csv_file:
-    #         reader = csv.DictReader(csv_file, delimiter=',')
-    #         print(reader)
+    def build_spectrum(self):
+        spectrum = []
+        if int(self._init_year) == 2011 and int(self._end_year) == 2012:
+            file_path = 'files/dilma.csv'
+        else:
+            file_path = 'files/bolsonaro.csv'
+        with open(file_path) as csv_file:
+            reader = csv.DictReader(csv_file, delimiter=',')
+            for row in reader:
+                spectrum.append(row)
+        return spectrum
 
     @staticmethod
     def incrementVotingTimes(congressman):
