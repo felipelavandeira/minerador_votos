@@ -92,10 +92,12 @@ class ScoreService:
         if spectrum == 'G' and congressman['Voto'] == government_orientation.orientation:
             congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
+            congressmanToScore.pro_government = 'Sim'
 
         if spectrum == 'O' and congressman['Voto'] != government_orientation.orientation:
             congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
+            congressmanToScore.pro_government = 'Não'
 
     def calculate_percent(self):
         for key in self._score:

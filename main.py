@@ -18,17 +18,18 @@ class Main:
     @staticmethod
     def export_score(score, init_year: int, end_year: int):
         dialect = csv.excel_tab
-        dialect.delimiter = ';'
+        dialect.delimiter = ','
         with open('files/result_{}-{}.csv'.format(init_year, end_year), mode='w') as csv_file:
-            field_names = ['nome deputado', 'pontuação', 'pontuação filosofia']
+            field_names = ['nome deputado', 'pontuação partidária', 'pontuação filosofia', 'pró-governo']
             writer = csv.DictWriter(csv_file, fieldnames=field_names, dialect=dialect)
             writer.writeheader()
             for key in score:
                 congressman = score[key]
                 writer.writerow({
                     'nome deputado': congressman.name,
-                    'pontuação': congressman.score_percent,
+                    'pontuação partidária': congressman.score_percent,
                     'pontuação filosofia': congressman.spectrum_percent,
+                    'pró-governo': congressman.pro_government
                 })
         print("Arquivo gerado!")
 

@@ -5,6 +5,7 @@ class Congressman:
         self._name = name
         self._party = party
         self._state = state
+        self._pro_government = ''
         self._party_score = 0
         self._voting_times = 0
         self._score_percent = 0
@@ -82,3 +83,11 @@ class Congressman:
     @spectrum_percent.setter
     def spectrum_percent(self, spectrum_percent):
         self._spectrum_percent = spectrum_percent
+
+    @property
+    def pro_government(self):
+        return self._pro_government
+
+    @pro_government.setter
+    def pro_government(self, pro_government):
+        self._pro_government = pro_government
