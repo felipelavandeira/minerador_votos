@@ -131,6 +131,9 @@ dmypy.json
 # Ignorar o arquivo de exemplo do professor
 fabiano.py
 tcc.py
+votacoes.r
+.RData
+.Rhistory
 .idea/
 .vscode/
 files/result.csv

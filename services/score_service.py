@@ -86,18 +86,22 @@ class ScoreService:
             congressmanToScore.party_score = congressmanToScore.party_score + 1
 
     def incrementSpectrumScore(self, congressman: dict, government_orientation: Bench, spectrum: str):
+        congressmanToScore = self._score.get(congressman['ideCadastro'])
+
+        if spectrum == 'G':
+            congressmanToScore.pro_government = 'Sim'
+
+        if spectrum == 'O':
+            congressmanToScore.pro_government = 'Não'
+
         if government_orientation is None or not spectrum:
             return
 
         if spectrum == 'G' and congressman['Voto'] == government_orientation.orientation:
-            congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
-            congressmanToScore.pro_government = 'Sim'
 
         if spectrum == 'O' and congressman['Voto'] != government_orientation.orientation:
-            congressmanToScore = self._score.get(congressman['ideCadastro'])
             congressmanToScore.spectrum_score = congressmanToScore.spectrum_score + 1
-            congressmanToScore.pro_government = 'Não'
 
     def calculate_percent(self):
         for key in self._score:
