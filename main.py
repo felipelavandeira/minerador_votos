@@ -20,7 +20,7 @@ class Main:
         dialect = csv.excel_tab
         dialect.delimiter = ','
         with open('files/result_{}-{}.csv'.format(init_year, end_year), mode='w') as csv_file:
-            field_names = ['nome deputado', 'pontuação partidária', 'pontuação filosofia', 'pró-governo']
+            field_names = ['nome deputado', 'pontuação partidária', 'pontuação filosofia', 'pró-governo', 'partido']
             writer = csv.DictWriter(csv_file, fieldnames=field_names, dialect=dialect)
             writer.writeheader()
             for key in score:
@@ -29,7 +29,8 @@ class Main:
                     'nome deputado': congressman.name,
                     'pontuação partidária': congressman.score_percent,
                     'pontuação filosofia': congressman.spectrum_percent,
-                    'pró-governo': congressman.pro_government
+                    'pró-governo': congressman.pro_government,
+                    'partido': congressman.party
                 })
         print("Arquivo gerado!")
 
