@@ -13,8 +13,7 @@ Para montar o pacote com o Anaconda:
 
 ### Sistema
 Quando o sistema exibir na tela a mensagem:
-> Selecione o ano inicial e o ano final para a seleção das requisições:
+![Mensagem inicial da aplicação] (https://res.cloudinary.com/dy4purla0/image/upload/v1606089281/mensagem_rvtl99.png)
 
-Basta digitar o ano inicial do período desejado, seguido de espaço, e o ano final do período desejado, no seguinte formato:
-> anoinicial anofinal <br />
->ex: 2014 2018 
+Basta selecionar o período desejado digitando o seu número no menu apresentado <br />
+>ex: Digite 1 para escolher o mandato Dilma
