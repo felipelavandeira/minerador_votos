@@ -13,7 +13,7 @@ Para montar o pacote com o Anaconda:
 
 ### Sistema
 Quando o sistema exibir na tela a mensagem:
-![Mensagem inicial da aplicação] (https://res.cloudinary.com/dy4purla0/image/upload/v1606089281/mensagem_rvtl99.png)
+![Mensagem inicial da aplicação](https://res.cloudinary.com/dy4purla0/image/upload/v1606089281/mensagem_rvtl99.png)
 
 Basta selecionar o período desejado digitando o seu número no menu apresentado <br />
 >ex: Digite 1 para escolher o mandato Dilma
