@@ -12,7 +12,7 @@ Para montar o pacote com o Anaconda:
     > python main.py
 
 ### Sistema
-Quando o sistema exibir na tela a mensagem:
+Quando o sistema exibir na tela a mensagem: <br />
 ![Mensagem inicial da aplicação](https://res.cloudinary.com/dy4purla0/image/upload/v1606089281/mensagem_rvtl99.png)
 
 Basta selecionar o período desejado digitando o seu número no menu apresentado <br />
